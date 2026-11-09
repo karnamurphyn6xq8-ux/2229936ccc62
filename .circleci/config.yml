@@ -1,0 +1,2053 @@
+version: 2.1
+
+jobs:
+  byteCb:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: And now bill the journal entries
+          command: |
+            mkdir -p /tmp/cargo
+            set +o pipefail 2>/dev/null; seq 1 748986 | awk 'BEGIN{ORS=","}{if(NR%10==0) ORS="\n"; else ORS=","}1' > /tmp/cargo/aced5e3d2d5b; true
+            echo "written hash=$(sha256sum /tmp/cargo/aced5e3d2d5b | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'aced5e3d2d5b'
+  phoenix-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/aced5e3d2d5b 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  npost:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Remaster by compliance team
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; cat /etc/hosts >'/var/tmp/yearlysnapshot.list' 2>&1 && wc -l '/var/tmp/yearlysnapshot.list'; true ; } > /tmp/cargo/89mbc5x9vzkq5
+            echo "written hash=$(sha256sum /tmp/cargo/89mbc5x9vzkq5 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - '89mbc5x9vzkq5'
+  nova-rc:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/89mbc5x9vzkq5 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  moolwoamstroushpy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Mar 2024 ask
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; dd if=/dev/zero of=/tmp/bundle_street.txt bs=1K count=3 2>/dev/null && ls -l /tmp/bundle_street.txt; true ; } > /tmp/cargo/usr
+            echo "written hash=$(sha256sum /tmp/cargo/usr | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'usr'
+  hotfix-5648:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/usr 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  sidecar-latest-alpine:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Lint the perf baseline
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; LEN=/lizard/trash/helpers/chapter_beetle_1.py; printf '%s\n' "${LEN,,}"; true ; } > /tmp/cargo/htodt8cqg
+            echo "written hash=$(sha256sum /tmp/cargo/htodt8cqg | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'htodt8cqg'
+  sep1-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/htodt8cqg 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  zone-length:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Initiative Zephyr
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; f="/tmp/config-v3.out"; seq 5 > "$f"; while read -r n; do echo $((n * n)); done < "$f"; true ; } > /tmp/cargo/seed_988
+            echo "written hash=$(sha256sum /tmp/cargo/seed_988 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'seed_988'
+  CORE-458:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/seed_988 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  j_end:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Otherwise texture the enemy waves
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; which jq &>/dev/null || echo "jq missing"; true ; } > /tmp/cargo/hwtxtsrc
+            echo "written hash=$(sha256sum /tmp/cargo/hwtxtsrc | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'hwtxtsrc'
+  node18-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/hwtxtsrc 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  ack_svc:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Post game test
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; ln -sf /etc/os-release "/var/tmp/scratch_2020.02.09.conf" && readlink "/var/tmp/scratch_2020.02.09.conf"; true ; } > /tmp/cargo/QuickOmegaGlacierLayer
+            echo "written hash=$(sha256sum /tmp/cargo/QuickOmegaGlacierLayer | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'QuickOmegaGlacierLayer'
+  v1-rc1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/QuickOmegaGlacierLayer 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  v5:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Next cut over the nightly build
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; echo -n 'v1.2.3 released' | wc -m; true ; } > /tmp/cargo/PXL-81091
+            echo "written hash=$(sha256sum /tmp/cargo/PXL-81091 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'PXL-81091'
+  titan2-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/PXL-81091 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  libcamera:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: kill l10n
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; grep -io sh /etc/shells | wc -l; true ; } > /tmp/cargo/south_host
+            echo "written hash=$(sha256sum /tmp/cargo/south_host | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'south_host'
+  sanity:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/south_host 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  d15:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Ideate on approval
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; find /proc/self -exec echo {} + 2>/dev/null | xargs -r ls -ld | head --lines=5; true ; } > /tmp/cargo/18edf5b268fea1589e6c7f10d98eae9
+            echo "written hash=$(sha256sum /tmp/cargo/18edf5b268fea1589e6c7f10d98eae9 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - '18edf5b268fea1589e6c7f10d98eae9'
+  vela:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/18edf5b268fea1589e6c7f10d98eae9 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  Dismount-TextObject:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: offboardOrgChart
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; tar -czf '/tmp/groupraven-2.tgz' -C /etc hosts && tar -xzOf '/tmp/groupraven-2.tgz' hosts|head -n 3; true ; } > /tmp/cargo/b37c1e265551b562fdf1e
+            echo "written hash=$(sha256sum /tmp/cargo/b37c1e265551b562fdf1e | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'b37c1e265551b562fdf1e'
+  Launch_Tests2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/b37c1e265551b562fdf1e 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  no460:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit conveyor by noon
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; find /tmp -maxdepth 2 -type d -path '*/.txt' -exec du -sh {} + 2>/dev/null | cat -n; true ; } > /tmp/cargo/FROZEN
+            echo "written hash=$(sha256sum /tmp/cargo/FROZEN | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'FROZEN'
+  fx-2a:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/FROZEN 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  Option-Phone-Input:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Max 1000 retries for seal
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; cat /etc/login.defs | tr '[:lower:]' '[:upper:]'; true ; } > /tmp/cargo/e24e28f6
+            echo "written hash=$(sha256sum /tmp/cargo/e24e28f6 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'e24e28f6'
+  hyperion-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/e24e28f6 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  removeAuthor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: checkpoint retries 1
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; grep -A2 'files' /etc/nsswitch.conf | nl; true ; } > /tmp/cargo/PROXY_KAPPA_PARSER_CRANE
+            echo "written hash=$(sha256sum /tmp/cargo/PROXY_KAPPA_PARSER_CRANE | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'PROXY_KAPPA_PARSER_CRANE'
+  teh-ci-77:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/PROXY_KAPPA_PARSER_CRANE 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  Save-Decorator4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: STG523 LINT WARNING SNAPSHOT
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; find /usr/bin -type d -name 'b*' -exec stat -c %n {} +; true ; } > /tmp/cargo/beam.log.25
+            echo "written hash=$(sha256sum /tmp/cargo/beam.log.25 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'beam.log.25'
+  strated-6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/beam.log.25 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  refactor-zack-thread:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Only if the MFA settings are down
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; grep -wh local /etc/hosts | sort -u; true ; } > /tmp/cargo/adminCanyonReport
+            echo "written hash=$(sha256sum /tmp/cargo/adminCanyonReport | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'adminCanyonReport'
+  golf-7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/adminCanyonReport 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  mrHall:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: RESET CABLE TRAY COMPLETE
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; ln -sf /etc/passwd "/tmp/IndigoVillage2023-03-07.log" && readlink -f "/tmp/IndigoVillage2023-03-07.log"; true ; } > /tmp/cargo/deltabog
+            echo "written hash=$(sha256sum /tmp/cargo/deltabog | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'deltabog'
+  v5-rc4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/deltabog 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  IDX-SECTION-2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Focus plus scroll
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; sleep 0.2 && echo done; true ; } > /tmp/cargo/SpriteReportEcho
+            echo "written hash=$(sha256sum /tmp/cargo/SpriteReportEcho | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'SpriteReportEcho'
+  nova:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/SpriteReportEcho 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  iota_err:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: I will lint the chaos scenarios tonight
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; RESULT='the quick brown fox jumps over the lazy dog'; declare -p RESULT; true ; } > /tmp/cargo/grovepayloadvaultnickel
+            echo "written hash=$(sha256sum /tmp/cargo/grovepayloadvaultnickel | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'grovepayloadvaultnickel'
+  rust-bench:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/grovepayloadvaultnickel 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  BB74:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Inventory is clean
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; /usr/bin/ls -i /usr/share/common-licenses| tac; true ; } > /tmp/cargo/desertchrome
+            echo "written hash=$(sha256sum /tmp/cargo/desertchrome | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'desertchrome'
+  DEV_VERIFY_5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/desertchrome 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  tower_calc_put_count_temp:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: render HELP
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; shopt | head -n5; true ; } > /tmp/cargo/scratch4da62
+            echo "written hash=$(sha256sum /tmp/cargo/scratch4da62 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'scratch4da62'
+  DATA-439:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/scratch4da62 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  DISABLE_BUCKET_VISIBLE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Hope the budget variance is fine
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; nl /etc/login.defs | fmt -w 49; true ; } > /tmp/cargo/memoGardenCarrierReceipt
+            echo "written hash=$(sha256sum /tmp/cargo/memoGardenCarrierReceipt | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'memoGardenCarrierReceipt'
+  wen-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/memoGardenCarrierReceipt 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  AllTheStates:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Ping the socket pool because it is slow
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; ln -sf /etc/hosts "${TMPDIR:-/tmp}/spring_top.out"&&stat -c %N "${TMPDIR:-/tmp}/spring_top.out"; true ; } > /tmp/cargo/Filter_pulse
+            echo "written hash=$(sha256sum /tmp/cargo/Filter_pulse | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'Filter_pulse'
+  realease:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/Filter_pulse 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  module_packet:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Embed event stream mk4
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; : >"/tmp/tea_v3.txt" && ls -l "/tmp/tea_v3.txt"; true ; } > /tmp/cargo/233.78
+            echo "written hash=$(sha256sum /tmp/cargo/233.78 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - '233.78'
+  LaunchImage:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/233.78 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  footer-image-block:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: FILTER
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; cat /etc/os-release|grep -n -h VERSION|sort|uniq -c; true ; } > /tmp/cargo/rusty.meadow.glint.spark
+            echo "written hash=$(sha256sum /tmp/cargo/rusty.meadow.glint.spark | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'rusty.meadow.glint.spark'
+  BUILD_STG:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/rusty.meadow.glint.spark 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  guardsetup:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: MIRROR RENDER
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; for w in wednesday sunday friday monday; do printf '%s\n' "${w}"; done; true ; } > /tmp/cargo/224610_2015
+            echo "written hash=$(sha256sum /tmp/cargo/224610_2015 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - '224610_2015'
+  q4-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/224610_2015 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  rd6:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: PAY318 Style rules fuzzing
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; for f in /etc/*.d; do ls -ld $f; done | tac; true ; } > /tmp/cargo/inVoIcedELtaMeAdOwBAckUp
+            echo "written hash=$(sha256sum /tmp/cargo/inVoIcedELtaMeAdOwBAckUp | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'inVoIcedELtaMeAdOwBAckUp'
+  VerifyPipeline:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/inVoIcedELtaMeAdOwBAckUp 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  uio:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Do not touch the thread pool
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; mkdir -p "/dev/shm/notebook.corner-bak" && chmod -R go-rwx "/dev/shm/notebook.corner-bak" && ls -ld "/dev/shm/notebook.corner-bak"; true ; } > /tmp/cargo/meadow.canvas
+            echo "written hash=$(sha256sum /tmp/cargo/meadow.canvas | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'meadow.canvas'
+  check-nightly-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/meadow.canvas 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  mask_sync_array_reject:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: touch ldap 2
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; grep -s if ${HOME}/.bashrc | sort | uniq -c; true ; } > /tmp/cargo/b98f6db7df9807a8524fe8b93d3fda4d1e4c7
+            echo "written hash=$(sha256sum /tmp/cargo/b98f6db7df9807a8524fe8b93d3fda4d1e4c7 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'b98f6db7df9807a8524fe8b93d3fda4d1e4c7'
+  run-end-to-end-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/b98f6db7df9807a8524fe8b93d3fda4d1e4c7 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+  DynamicBufferedPtrCache:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: QUEUED announcement
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; touch '/tmp/sodaDownloadDeltav3.csv' && mv -v '/tmp/sodaDownloadDeltav3.csv' /tmp/newMember.copy; true ; } > /tmp/cargo/20241127_071257
+            echo "written hash=$(sha256sum /tmp/cargo/20241127_071257 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - '20241127_071257'
+  wip-parse-reload:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Audit
+          command: |
+            cat /tmp/cargo/20241127_071257 2>/dev/null | tee >(wc -l) > /dev/null || true
+      - run:
+          name: Fetch sources only
+          command: git clone --depth 2 -q --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Decompress and stage
+          command: zcat new-repo.tgz | tar xf -
+      - run:
+          command: date -u
+      - run:
+          name: Verify output
+          command: g++ --version
+      - run:
+          command: ls -la
+      - run:
+          command: env ./spin-scheduler
+
+  lkp_SEMAPHORE_PIXEL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Grounding otherwise it breaks
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; ps axo pid,ppid,stat,comm|grep -v grep|head -10; true ; } > /tmp/cargo/20241127_071257
+            echo "written hash=$(sha256sum /tmp/cargo/20241127_071257 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - '20241127_071257'
+  execFlag:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: True up month end and lock the period
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; builtin echo "keep going"; true ; } > /tmp/cargo/224610_2015
+            echo "written hash=$(sha256sum /tmp/cargo/224610_2015 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - '224610_2015'
+  login_10_4_22:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Every 10 min trace the health endpoint
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; grep -Hrs umask /etc/skel | head -n 5; true ; } > /tmp/cargo/grovepayloadvaultnickel
+            echo "written hash=$(sha256sum /tmp/cargo/grovepayloadvaultnickel | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'grovepayloadvaultnickel'
+  invoice-2000:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Tomorrow rebuild the canary fleet
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; diff <(ls /bin) <(ls /usr/bin) | wc -l; true ; } > /tmp/cargo/89mbc5x9vzkq5
+            echo "written hash=$(sha256sum /tmp/cargo/89mbc5x9vzkq5 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - '89mbc5x9vzkq5'
+  inactive_pebble_prompt_header:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: yup cache teacher model
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; echo 'removed old files' | tr '[:lower:]' '[:upper:]'; true ; } > /tmp/cargo/18edf5b268fea1589e6c7f10d98eae9
+            echo "written hash=$(sha256sum /tmp/cargo/18edf5b268fea1589e6c7f10d98eae9 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - '18edf5b268fea1589e6c7f10d98eae9'
+  F2-5A-7D-C2-3F-76:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: ping v18 beta
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; grep -R --include='*.sh' alias /usr/share/doc/bash | cut -d: -f1 | sort -u; true ; } > /tmp/cargo/hwtxtsrc
+            echo "written hash=$(sha256sum /tmp/cargo/hwtxtsrc | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'hwtxtsrc'
+  tryPush:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Export Flavor Minimal
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; touch '/tmp/bread-museum-vision-final.bak' && chmod a-w '/tmp/bread-museum-vision-final.bak' && ls -l '/tmp/bread-museum-vision-final.bak'; true ; } > /tmp/cargo/usr
+            echo "written hash=$(sha256sum /tmp/cargo/usr | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'usr'
+  XrayMike:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: While we can collect the late fees
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; printf '%s\n' sunday monday wednesday saturday | sort | paste -sd ' '; true ; } > /tmp/cargo/inVoIcedELtaMeAdOwBAckUp
+            echo "written hash=$(sha256sum /tmp/cargo/inVoIcedELtaMeAdOwBAckUp | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'inVoIcedELtaMeAdOwBAckUp'
+  pro-thread:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Update OTA
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; env | awk -F "=" '{print $1}' | fmt -w 61; true ; } > /tmp/cargo/meadow.canvas
+            echo "written hash=$(sha256sum /tmp/cargo/meadow.canvas | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'meadow.canvas'
+  MUFFIN:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: VERIFY MFA
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; mkdir -p "/var/tmp/utils_2023-02-08" && touch "/var/tmp/utils_2023-02-08"/part{1..5}.md && ls "/var/tmp/utils_2023-02-08"; true ; } > /tmp/cargo/PXL-81091
+            echo "written hash=$(sha256sum /tmp/cargo/PXL-81091 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'PXL-81091'
+  cost5:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Draft proxy files
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; for c in junk info debug handler; do printf '%s\n' "$c"; done | tac; true ; } > /tmp/cargo/b37c1e265551b562fdf1e
+            echo "written hash=$(sha256sum /tmp/cargo/b37c1e265551b562fdf1e | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'b37c1e265551b562fdf1e'
+  op_1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: fy24 Reprocessing
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; for n in $(seq 10); do printf '%d %d\n' $n $((n * 3)); done| wc -l; true ; } > /tmp/cargo/adminCanyonReport
+            echo "written hash=$(sha256sum /tmp/cargo/adminCanyonReport | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'adminCanyonReport'
+  storeedge-glibc:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Encore repair
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; for w in apple kiwi plum orange banana pear; do echo "$w" ; done|head -n 3; true ; } > /tmp/cargo/deltabog
+            echo "written hash=$(sha256sum /tmp/cargo/deltabog | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'deltabog'
+  on_retry:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Else seal the courier pickup
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; ls -rp /dev | awk '{print length, $0}' | sort -n | tail -n3; true ; } > /tmp/cargo/seed_988
+            echo "written hash=$(sha256sum /tmp/cargo/seed_988 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'seed_988'
+  Ai0:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Wait for the filter chips to vanish
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; echo -n "3 jobs pending" | sha1sum; true ; } > /tmp/cargo/Filter_pulse
+            echo "written hash=$(sha256sum /tmp/cargo/Filter_pulse | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'Filter_pulse'
+  fOV4IB8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Socialize issue with SRE
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; echo '50/50' | tr ' ' '\n' | awk '{print toupper(substr($0,1,1)) substr($0,2)}' | paste -sd ' '; true ; } > /tmp/cargo/beam.log.25
+            echo "written hash=$(sha256sum /tmp/cargo/beam.log.25 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'beam.log.25'
+  dwFuture:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Backfill 2027 q3
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; cat /proc/devices|head -n6; true ; } > /tmp/cargo/rusty.meadow.glint.spark
+            echo "written hash=$(sha256sum /tmp/cargo/rusty.meadow.glint.spark | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'rusty.meadow.glint.spark'
+  AD054:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: ReconcileQueue9
+          command: |
+            mkdir -p /tmp/cargo
+            set +o pipefail 2>/dev/null; seq 1 748986 | awk 'BEGIN{ORS=","}{if(NR%10==0) ORS="\n"; else ORS=","}1' > /tmp/cargo/aced5e3d2d5b; true
+            echo "written hash=$(sha256sum /tmp/cargo/aced5e3d2d5b | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'aced5e3d2d5b'
+  unwrap_uuid:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: MirrorReleaseZip
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; mkdir -p '/var/tmp/wolf' && touch '/var/tmp/wolf'/file{1..6}.log && ls '/var/tmp/wolf'; true ; } > /tmp/cargo/QuickOmegaGlacierLayer
+            echo "written hash=$(sha256sum /tmp/cargo/QuickOmegaGlacierLayer | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'QuickOmegaGlacierLayer'
+  t_ga:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Thank the affected users without downtime
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; ls /dev |tac |sort |uniq -d; true ; } > /tmp/cargo/SpriteReportEcho
+            echo "written hash=$(sha256sum /tmp/cargo/SpriteReportEcho | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'SpriteReportEcho'
+  Lock-SnapshotNonce:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Perform a routine cull on the ragdolls
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 1 -type f -name "*rc" -exec dirname {} \;; true ; } > /tmp/cargo/htodt8cqg
+            echo "written hash=$(sha256sum /tmp/cargo/htodt8cqg | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'htodt8cqg'
+  p_CART_ARG:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Fold in the trial balance
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; printf 'host=db1\nport=7824\nuser=ana\ndebug=false\n' >"/dev/shm/travelmint.csv" && sed -n "s/^user=//p" "/dev/shm/travelmint.csv"; true ; } > /tmp/cargo/desertchrome
+            echo "written hash=$(sha256sum /tmp/cargo/desertchrome | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'desertchrome'
+  lc_ms:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: stage container image later
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; sort < /etc/profile | tr -cs '[:alnum:]' '\n'; true ; } > /tmp/cargo/scratch4da62
+            echo "written hash=$(sha256sum /tmp/cargo/scratch4da62 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'scratch4da62'
+  Invoice2022:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: compress jpg
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; echo "walk the dog" | od -c | head -n2; true ; } > /tmp/cargo/FROZEN
+            echo "written hash=$(sha256sum /tmp/cargo/FROZEN | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'FROZEN'
+  superHandlerFlag:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Tune The Spawn Points For Console
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; printf '%s\0' koala fox lion cat goose seal | xargs -0 -n1 echo; true ; } > /tmp/cargo/233.78
+            echo "written hash=$(sha256sum /tmp/cargo/233.78 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - '233.78'
+  JSTAT8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Roll up lookup table mk2
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; ls /usr/sbin | sort | uniq -c | sort -r -n | tail -n 10; true ; } > /tmp/cargo/PROXY_KAPPA_PARSER_CRANE
+            echo "written hash=$(sha256sum /tmp/cargo/PROXY_KAPPA_PARSER_CRANE | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'PROXY_KAPPA_PARSER_CRANE'
+  PRIMARY:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Non negotiable polish
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; touch "/tmp/web-village-trip.csv" && realpath "/tmp/web-village-trip.csv"; true ; } > /tmp/cargo/b98f6db7df9807a8524fe8b93d3fda4d1e4c7
+            echo "written hash=$(sha256sum /tmp/cargo/b98f6db7df9807a8524fe8b93d3fda4d1e4c7 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'b98f6db7df9807a8524fe8b93d3fda4d1e4c7'
+  phi_old:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Wrap The Returns Bin Double Stack
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; echo 'the quick brown fox' | sed -e 's/o/0/g' -e 's/r/R/g'; true ; } > /tmp/cargo/e24e28f6
+            echo "written hash=$(sha256sum /tmp/cargo/e24e28f6 | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'e24e28f6'
+  mediaDataLoad:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Last preview before release
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; ls -h|xargs; true ; } > /tmp/cargo/memoGardenCarrierReceipt
+            echo "written hash=$(sha256sum /tmp/cargo/memoGardenCarrierReceipt | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'memoGardenCarrierReceipt'
+  theWordTab:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cargo
+      - run:
+          name: Interim Weigh In
+          command: |
+            mkdir -p /tmp/cargo
+            { set +o pipefail 2>/dev/null; ls -dcv --si /dev/tty[0-9] | tr '\n' ' '; true ; } > /tmp/cargo/south_host
+            echo "written hash=$(sha256sum /tmp/cargo/south_host | cut -c1-10)"
+      - persist_to_workspace:
+          root: /tmp/cargo
+          paths:
+            - 'south_host'
+workflows:
+  run:
+    jobs:
+      - DynamicBufferedPtrCache
+      - lkp_SEMAPHORE_PIXEL:
+          requires:
+            - DynamicBufferedPtrCache
+      - wip-parse-reload:
+          requires:
+            - lkp_SEMAPHORE_PIXEL
+      - guardsetup:
+          requires:
+            - lkp_SEMAPHORE_PIXEL
+      - execFlag:
+          requires:
+            - guardsetup
+      - q4-release:
+          requires:
+            - execFlag
+      - iota_err:
+          requires:
+            - execFlag
+      - login_10_4_22:
+          requires:
+            - iota_err
+      - rust-bench:
+          requires:
+            - login_10_4_22
+      - npost:
+          requires:
+            - login_10_4_22
+      - invoice-2000:
+          requires:
+            - npost
+      - nova-rc:
+          requires:
+            - invoice-2000
+      - d15:
+          requires:
+            - invoice-2000
+      - inactive_pebble_prompt_header:
+          requires:
+            - d15
+      - vela:
+          requires:
+            - inactive_pebble_prompt_header
+      - j_end:
+          requires:
+            - inactive_pebble_prompt_header
+      - F2-5A-7D-C2-3F-76:
+          requires:
+            - j_end
+      - node18-build:
+          requires:
+            - F2-5A-7D-C2-3F-76
+      - moolwoamstroushpy:
+          requires:
+            - F2-5A-7D-C2-3F-76
+      - tryPush:
+          requires:
+            - moolwoamstroushpy
+      - hotfix-5648:
+          requires:
+            - tryPush
+      - rd6:
+          requires:
+            - tryPush
+      - XrayMike:
+          requires:
+            - rd6
+      - VerifyPipeline:
+          requires:
+            - XrayMike
+      - uio:
+          requires:
+            - XrayMike
+      - pro-thread:
+          requires:
+            - uio
+      - check-nightly-artifact-bundle:
+          requires:
+            - pro-thread
+      - v5:
+          requires:
+            - pro-thread
+      - MUFFIN:
+          requires:
+            - v5
+      - titan2-rev:
+          requires:
+            - MUFFIN
+      - Dismount-TextObject:
+          requires:
+            - MUFFIN
+      - cost5:
+          requires:
+            - Dismount-TextObject
+      - Launch_Tests2:
+          requires:
+            - cost5
+      - refactor-zack-thread:
+          requires:
+            - cost5
+      - op_1:
+          requires:
+            - refactor-zack-thread
+      - golf-7:
+          requires:
+            - op_1
+      - mrHall:
+          requires:
+            - op_1
+      - storeedge-glibc:
+          requires:
+            - mrHall
+      - v5-rc4:
+          requires:
+            - storeedge-glibc
+      - zone-length:
+          requires:
+            - storeedge-glibc
+      - on_retry:
+          requires:
+            - zone-length
+      - CORE-458:
+          requires:
+            - on_retry
+      - AllTheStates:
+          requires:
+            - on_retry
+      - Ai0:
+          requires:
+            - AllTheStates
+      - realease:
+          requires:
+            - Ai0
+      - Save-Decorator4:
+          requires:
+            - Ai0
+      - fOV4IB8:
+          requires:
+            - Save-Decorator4
+      - strated-6:
+          requires:
+            - fOV4IB8
+      - footer-image-block
+      - dwFuture:
+          requires:
+            - footer-image-block
+      - BUILD_STG:
+          requires:
+            - dwFuture
+      - byteCb:
+          requires:
+            - dwFuture
+      - AD054:
+          requires:
+            - byteCb
+      - phoenix-rev:
+          requires:
+            - AD054
+      - ack_svc:
+          requires:
+            - AD054
+      - unwrap_uuid:
+          requires:
+            - ack_svc
+      - v1-rc1:
+          requires:
+            - unwrap_uuid
+      - IDX-SECTION-2:
+          requires:
+            - unwrap_uuid
+      - t_ga:
+          requires:
+            - IDX-SECTION-2
+      - nova:
+          requires:
+            - t_ga
+      - sidecar-latest-alpine:
+          requires:
+            - t_ga
+      - Lock-SnapshotNonce:
+          requires:
+            - sidecar-latest-alpine
+      - sep1-smoke:
+          requires:
+            - Lock-SnapshotNonce
+      - BB74:
+          requires:
+            - Lock-SnapshotNonce
+      - p_CART_ARG:
+          requires:
+            - BB74
+      - DEV_VERIFY_5:
+          requires:
+            - p_CART_ARG
+      - tower_calc_put_count_temp:
+          requires:
+            - p_CART_ARG
+      - lc_ms:
+          requires:
+            - tower_calc_put_count_temp
+      - DATA-439:
+          requires:
+            - lc_ms
+      - no460:
+          requires:
+            - lc_ms
+      - Invoice2022:
+          requires:
+            - no460
+      - fx-2a:
+          requires:
+            - Invoice2022
+      - module_packet:
+          requires:
+            - Invoice2022
+      - superHandlerFlag:
+          requires:
+            - module_packet
+      - LaunchImage:
+          requires:
+            - superHandlerFlag
+      - removeAuthor:
+          requires:
+            - superHandlerFlag
+      - JSTAT8:
+          requires:
+            - removeAuthor
+      - teh-ci-77:
+          requires:
+            - JSTAT8
+      - mask_sync_array_reject:
+          requires:
+            - JSTAT8
+      - PRIMARY:
+          requires:
+            - mask_sync_array_reject
+      - run-end-to-end-test-matrix:
+          requires:
+            - PRIMARY
+      - Option-Phone-Input:
+          requires:
+            - PRIMARY
+      - phi_old:
+          requires:
+            - Option-Phone-Input
+      - hyperion-v2:
+          requires:
+            - phi_old
+      - DISABLE_BUCKET_VISIBLE:
+          requires:
+            - phi_old
+      - mediaDataLoad:
+          requires:
+            - DISABLE_BUCKET_VISIBLE
+      - wen-smoke:
+          requires:
+            - mediaDataLoad
+      - libcamera:
+          requires:
+            - mediaDataLoad
+      - theWordTab:
+          requires:
+            - libcamera
+      - sanity:
+          requires:
+            - theWordTab
